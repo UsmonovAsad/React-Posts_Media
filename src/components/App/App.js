@@ -103,18 +103,20 @@ export default class App extends Component {
 		const {data,term,filter,validationAddNewItem} = this.state;
 		const elements = this.filteredItems(this.searchItem(data,term),filter);
 		return (
-			<div className="app">
-				<AppHeader posts={this.state.data} />
-				<div className="search-panel d-flex">
-					<SearchPanel onUpdateSearch={this.onUpdateSearch} />
-					<PostStatusFilter filter={filter} onFilterSelect={this.onFilterSelect} />
+			<div className="app-container">
+				<div className="app">
+					<AppHeader posts={this.state.data} />
+					<div className="search-panel d-flex">
+						<SearchPanel onUpdateSearch={this.onUpdateSearch} />
+						<PostStatusFilter filter={filter} onFilterSelect={this.onFilterSelect} />
+					</div>
+					<PostList
+					  posts={elements}
+					  onDelete={this.deleteItem}
+					  onToggleImportant={this.onToggleImportant}
+					  onToggleLiked={this.onToggleLiked} />
+					<PostAddForm onAdd={this.onAdd} validationAddNewItem={validationAddNewItem} />
 				</div>
-				<PostList
-				  posts={elements}
-				  onDelete={this.deleteItem}
-				  onToggleImportant={this.onToggleImportant}
-				  onToggleLiked={this.onToggleLiked} />
-				<PostAddForm onAdd={this.onAdd} validationAddNewItem={validationAddNewItem} />
 			</div>
 		);
 	}

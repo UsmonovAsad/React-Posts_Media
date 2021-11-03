@@ -9,7 +9,7 @@ export default class AppHeader extends Component {
 
 		return (
 			<div className="app-header d-flex">
-				<h1>Hello, World!</h1>
+				<h1>Posts Media</h1>
 				<h2>{postsLength} posts, like {likesLength}</h2>
 			</div>
 		);

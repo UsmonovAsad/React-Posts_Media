@@ -3,7 +3,13 @@
 }
 
 .search-panel .search-input {
-	width: auto;
-	flex-grow: 1;
-	margin-right: 3px;
+    width: auto;
+    flex-grow: 1;
+    margin-right: 1.3rem;
+    font-size: 1.7rem;
+    padding: .7rem .7rem;
+}
+
+.text-danger {
+	font-size: 1.5rem;
 }

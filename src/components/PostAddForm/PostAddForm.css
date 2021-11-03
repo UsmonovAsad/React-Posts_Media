@@ -1,9 +1,11 @@
 .button-panel {
-	margin-top: 20px;
+	margin-top: 2rem;
+    font-size: 1.9rem;
 }
 
 .button-panel .new-post-label {
-	width: auto;
-	flex-grow: 1;
-	margin-right: 3px;
+    width: auto;
+    flex-grow: 1;
+    margin-right: 0.3rem;
+    padding: 0.7rem 0.7rem;
 }

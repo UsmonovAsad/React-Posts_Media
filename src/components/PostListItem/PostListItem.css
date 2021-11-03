@@ -1,12 +1,12 @@
 .app-list-item {
-	font-size: 1.25rem;
+	font-size: 2rem;
 }
 
 .app-list-item button {
-	width: 35px;
-	height: 35px;
-	margin: 3px;
-	font-size: 17px;
+	width: 3.5rem;
+	height: 3.5rem;
+	margin: .3rem;
+	font-size: 1.7rem;
 	border: 0;
 	cursor: pointer;
 }
@@ -25,20 +25,20 @@
 }
 
 .app-list-item .fa-heart {
-	width: 35px;
-	height: 35px;
+	width: 3.5rem;
+	height: 3.5rem;
 	text-align: center;
-	line-height: 35px;
-	font-size: 16px;
+	line-height: 3.5rem;
+	font-size: 1.6rem;
 	color: red;
-	transform: translateX(10px);
+	transform: translateX(1rem);
 	opacity: 0;
 	transition: all .3s;
 }
 
 .app-list-item-label {
 	display: block;
-	line-height: 35px;
+	line-height: 3.5rem;
 	cursor: pointer;
 	user-select: none;
 	transition: all .5s;
@@ -46,7 +46,7 @@
 
 .app-list-item.like .fa-heart {
 	opacity: 1;
-	transform: translateX(0px);
+	transform: translateX(0rem);
 }
 
 .app-list-item .fa-star {

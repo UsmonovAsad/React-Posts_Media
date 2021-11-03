@@ -17,7 +17,7 @@ export default class SearchPanel extends Component {
 			<input 
 			  type="text"
 			  className="from-control search-input"
-			  placeholder="Search by posts"
+			  placeholder="Search Post...."
 			  onChange={this.valueChange}
 			/>
 		);

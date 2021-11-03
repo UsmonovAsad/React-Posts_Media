@@ -18,10 +18,11 @@ export default class PostAddForm extends Component {
 				<div className="button-panel d-flex">
 					<input
 					  type="text"
-					  placeholder="What are you thinking about?"
+					  placeholder="Write new post title...."
 					  className="from-control new-post-label"
 					  value={this.state.title}
 					  onChange={(e) => this.setState({title: e.target.value})}
+					  onKeyDown={(e) => {if (e.key === "Enter") this.onClickBtn()}}
 					/>
 					<button
 					  onClick={this.onClickBtn}

@@ -12,3 +12,43 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+html {
+	font-size: 10px;
+}
+
+@media (max-width: 950px) {
+	html {
+		font-size: 9px;
+	}
+}
+
+@media (max-width: 800px) {
+	html {
+		font-size: 8px;
+	}
+}
+
+@media (max-width: 650px) {
+	html {
+		font-size: 7px;
+	}
+}
+
+@media (max-width: 530px) {
+	html {
+		font-size: 6px;
+	}
+}
+
+@media (max-width: 450px) {
+	html {
+		font-size: 5px;
+	}
+}
+
+@media (max-width: 280px) {
+	html {
+		font-size: 4px;
+	}
+}

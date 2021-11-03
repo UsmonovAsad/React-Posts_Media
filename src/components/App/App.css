@@ -1,9 +1,13 @@
+.app-container {
+	padding: 0 4rem;
+}
+
 .app {
-	margin: 50px auto;
-	max-width:  800px;
-	box-shadow: 1px 8px 18px rgba(0,0,0,.6);
+	margin: 5rem auto;
+	max-width:  80rem;
+	box-shadow: .1rem .8rem 1.8rem rgba(0,0,0,.6);
 	background: #fff;
-	padding:  20px;
+	padding:  2rem;
 	overflow: auto;
-	height: 500px;
+	height: 50rem;
 }
