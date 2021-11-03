@@ -1,0 +1,12 @@
+.app-list {
+	margin-top: 50px;
+}
+
+.app-list .list-group-item {
+	padding: 20px 35px 10px 35px;
+	margin-top: 10px;
+}
+
+.pl-1 {
+	padding-left: 10px;
+}
