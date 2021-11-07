@@ -1,4 +1,4 @@
-import {Component} from "react";
+import {useState,useEffect,useRef} from "react";
 import AppHeader from "../AppHeader";
 import SearchPanel from "../SearchPanel";
 import PostStatusFilter from "../PostStatusFilter";
@@ -6,88 +6,87 @@ import PostList from "../PostList";
 import PostAddForm from "../PostAddForm"
 import "./App.css";
 
-export default class App extends Component {
-	state = {
-		data: [
-			{label: "Welcome to ReactJS basic comment application",important: true,like: true,id: 1}
-		],
-		term: "",
-		filter: "All",
-		validationAddNewItem: true
-	}
 
-	componentDidUpdate() {
-		localStorage.setItem("data",JSON.stringify(this.state.data));
-		localStorage.setItem("maxId",this.maxId);
-	}
 
-	componentDidMount() {
-		const data = localStorage.getItem("data");
-		const maxId = localStorage.getItem("maxId");
-		if (maxId) this.maxId = maxId;
-		if (data) this.setState({data: JSON.parse(data)});
-	}
+export default function App() {
+	const [data,setData] = useState([{label: "Welcome to ReactJS basic comment application",important: true,like: true,id: 1}]);
+	const [term,setTerm] = useState("");
+	const [filter,setFilter] = useState("All");
+	const [validationAddNewItem,setValidationAddNewItem] = useState(true);
+	const maxIdRef = useRef(2);
 
-	maxId = 2;
+	useEffect(() => {
+			const data = localStorage.getItem("dataOfPostsMediaApp");
+			const maxId = localStorage.getItem("maxId");
+			if (maxId) maxIdRef.current = maxId;
+			if (data) setData(JSON.parse(data));
+			console.log("ComponentDidMount")
+	},[]);
 
-	deleteItem = (id) => {
-		this.setState(({data}) => {
-			const index = data.findIndex(e => e.id === id);
+	useEffect(() => {
+		localStorage.setItem("dataOfPostsMediaApp",JSON.stringify(data));
+		localStorage.setItem("maxId",maxIdRef.current);
+		console.log("ComponentDidUpdate")
+	},[data]);
+
+	const deleteItem = (id) => {
+		setData(prevData => {
+			const index = prevData.findIndex(e => e.id === id);
 			
-			const newData = [...data.slice(0,index),...data.slice(index+1)];
+			const newData = [...prevData.slice(0,index),...prevData.slice(index+1)];
 
-			return {data: newData};
-		})
+			return newData;
+		});
 	}
 
-	onAdd = (title) => {
+	const onAdd = (title) => {
 		if (title) {
 			const newItem = {
 				label: title,
 				important: false,
 				like: false,
-				id: this.maxId++
+				id: maxIdRef.current++
 			}
-			this.setState({data: [...this.state.data,newItem]});
-			this.setState({validationAddNewItem: true});
+			setData([...data,newItem]);
+			setValidationAddNewItem(true)
 		} else {
-			this.setState({validationAddNewItem: false});
+			setValidationAddNewItem(false);
 		}
 	}
 
-	onToggleImportant = (id) => {
-		this.setState(({data}) => {
-			const index = data.findIndex(e => e.id === id);
-			const oldItem = data[index];
+	const onToggleImportant = (id) => {
+		setData(prevData => {
+			const index = prevData.findIndex(e => e.id === id);
+			const oldItem = prevData[index];
 			const newItem = {...oldItem,important: !oldItem.important};
 
-			const newArr = [...data.slice(0,index),newItem,...data.slice(index+1)];
-			return {data: newArr};
+			const newArr = [...prevData.slice(0,index),newItem,...prevData.slice(index+1)];
+			return newArr;
 		});
 	}
 
-	onToggleLiked = (id) => {
-		this.setState(({data}) => {
-			const index = data.findIndex(e => e.id === id);
-			const oldItem = data[index];
+	const onToggleLiked = (id) => {
+		setData(prevData => {
+			const index = prevData.findIndex(e => e.id === id);
+			const oldItem = prevData[index];
 			const newItem = {...oldItem,like: !oldItem.like};
 
-			const newArr = [...data.slice(0,index),newItem,...data.slice(index+1)];
-			return {data: newArr};
+			const newArr = [...prevData.slice(0,index),newItem,...prevData.slice(index+1)];
+			return newArr;
 		});
 	}
 
-	searchItem = (items,term) => {
+	const searchItem = (items,term) => {
 		if (!term) return items;
 
 		return items.filter(item => item.label.toLowerCase().includes(term.trim().toLowerCase()));
 	}
 
-	onUpdateSearch = (term) => {
-		this.setState({term});
+	const onUpdateSearch = (term) => {
+		setTerm(term);
 	}
 
-	filteredItems = (items,filter) => {
+	const filteredItems = (items,filter) => {
 		if (filter === "Liked") {
 			return items.filter(item => item.like);
 		} else {
@@ -95,29 +94,27 @@ export default class App extends Component {
 		}
 	}
 
-	onFilterSelect = (filter) => {
-		this.setState({filter});
+	const onFilterSelect = (filter) => {
+		setFilter(filter);
 	}
 
-	render() {
-		const {data,term,filter,validationAddNewItem} = this.state;
-		const elements = this.filteredItems(this.searchItem(data,term),filter);
-		return (
-			<div className="app-container">
-				<div className="app">
-					<AppHeader posts={this.state.data} />
-					<div className="search-panel d-flex">
-						<SearchPanel onUpdateSearch={this.onUpdateSearch} />
-						<PostStatusFilter filter={filter} onFilterSelect={this.onFilterSelect} />
-					</div>
-					<PostList
-					  posts={elements}
-					  onDelete={this.deleteItem}
-					  onToggleImportant={this.onToggleImportant}
-					  onToggleLiked={this.onToggleLiked} />
-					<PostAddForm onAdd={this.onAdd} validationAddNewItem={validationAddNewItem} />
+	const elements = filteredItems(searchItem(data,term),filter);
+
+	return (
+		<div className="app-container">
+			<div className="app">
+				<AppHeader posts={data} />
+				<div className="search-panel d-flex">
+					<SearchPanel onUpdateSearch={onUpdateSearch} />
+					<PostStatusFilter filter={filter} onFilterSelect={onFilterSelect} />
 				</div>
+				<PostList
+				  posts={elements}
+				  onDelete={deleteItem}
+				  onToggleImportant={onToggleImportant}
+				  onToggleLiked={onToggleLiked} />
+				<PostAddForm onAdd={onAdd} validationAddNewItem={validationAddNewItem} />
 			</div>
-		);
-	}
+		</div>
+	);
 }

@@ -1,9 +1,7 @@
-import {Component} from "react";
 import "./AppHeader.css";
 
-export default class AppHeader extends Component {
-	render() {
-		const {posts} = this.props
+export default function AppHeader(props) {
+		const {posts} = props
 		const postsLength = posts.length;
 		const likesLength = posts.filter(post => post.like === true).length;
 
@@ -13,5 +11,4 @@ export default class AppHeader extends Component {
 				<h2>{postsLength} posts, like {likesLength}</h2>
 			</div>
 		);
-	}
 }

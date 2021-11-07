@@ -1,19 +1,17 @@
-import {Component} from "react";
 import "./PostStatusFilter.css";
 
-export default class PostStatusFilter extends Component {
-	btns = [
+export default function PostStatusFilter(props) {
+	const btnsObj = [
 		{name:  "All"},
 		{name: "Liked"}
 	];
 
-	render() {
-		const btns = this.btns.map(({name}) => {
-			const active = this.props.filter === name;
+		const btns = btnsObj.map(({name}) => {
+			const active = props.filter === name;
 			const classNames = active ? "btn btn-primary" : "btn btn-outline-secondary";
 			return (
 				<button
-				  onClick={() => this.props.onFilterSelect(name)}
+				  onClick={() => props.onFilterSelect(name)}
 				  key={name} 
 				  className={classNames}>
 				  		{name}
@@ -26,5 +24,4 @@ export default class PostStatusFilter extends Component {
 				{btns}
 			</div>
 		);
-	}
 }
